@@ -1,14 +1,22 @@
+import java.util.ArrayList;
+
 public class Order {
     private Customer customer;
-    private Item item;
-    private int quantity;
+    private ArrayList<Item> items;
 
-    public Order(Customer customer, Item item, int quantity) {
-        this.customer = customer; this.item = item; this.quantity = quantity;
+    public Order(Customer customer) {
+        this.customer = customer;
+        this.items = new ArrayList<>();
     }
 
-    public int getQuantity() { return quantity; }
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void addItem(Item item) {
+        items.add(item);
+    }
 
-    public int total() { return item.getPrice() * quantity; }
+    public void showOrder() {
+        System.out.println("Order for " + customer.name);
+        for (Item i : items) {
+            System.out.println(i);
+        }
+    }
 }

@@ -1,20 +1,40 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Customer c = new Customer("Aruzhan");
+        Scanner sc = new Scanner(System.in);
 
-        Item a = new Item("Apple", 250);
-        Item b = new Item("Milk", 500);
+        Customer c = new Customer("Alice");
+        Order o = new Order(c);
 
-        Order o1 = new Order(c, a, 2);
-        Order o2 = new Order(c, b, 1);
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(new Item("Phone", 200000));
+        items.add(new Item("Laptop", 400000));
+        items.add(new Item("Mouse", 5000));
 
-        System.out.println(c.getName());
-        System.out.println(a.getName() + " " + a.getPrice());
-        System.out.println(b.getName() + " " + b.getPrice());
+        for (Item item : items) {
+            if (item.getPrice() < 300000) {
+                o.addItem(item);
+            }
+        }
 
-        System.out.println("b more expensive? " + b.moreExpensive(a));
+        System.out.print("Enter new item name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter price: ");
+        int price = sc.nextInt();
+        o.addItem(new Item(name, price));
 
-        if (o1.total() > o2.total()) System.out.println("o1 bigger");
-        else System.out.println("o2 bigger or equal");
+        o.showOrder();
+
+        for (int i = 0; i < items.size(); i++) {
+            for (int j = i + 1; j < items.size(); j++) {
+                if (items.get(i).getPrice() > items.get(j).getPrice()) {
+                    Item temp = items.get(i);
+                    items.set(i, items.get(j));
+                    items.set(j, temp);
+                }
+            }
+        }
     }
 }
